@@ -39,7 +39,10 @@ if (typeof document !== 'undefined') {
     if (!$('clave').value.trim()) return;
     try {
       const result = calculate($('clave').value, kind);
-      for (const id of ['base','cash','card']) $(id).textContent = format(result[id]);
+      for (const id of ['base','cash','card']) {
+        $(id).textContent = format(result[id]);
+        $(id).style.fontSize = Math.min(27, 155 / $(id).textContent.length) + 'px';
+      }
     } catch (error) {
       $('error').textContent = error.message;
       $('error').hidden = false;
@@ -64,7 +67,24 @@ if (typeof document !== 'undefined') {
     if (event.key === 'Enter') { render(); $('clave').blur(); }
     if (event.key === 'Escape') { $('clave').value = ''; render(); }
   });
+  // Fit the complete calculator to the actual visible viewport, including browser bars.
+  const panel = document.querySelector('.calculator');
+  function fitScreen() {
+    panel.style.transform = 'none';
+    const main = document.querySelector('main');
+    const style = getComputedStyle(main);
+    const width = main.clientWidth - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight);
+    const height = main.clientHeight - parseFloat(style.paddingTop) - parseFloat(style.paddingBottom);
+    const scale = Math.min(1, width / panel.offsetWidth, height / panel.offsetHeight);
+    panel.style.transform = `scale(${scale})`;
+  }
+  $('help-open').addEventListener('click', () => $('help').showModal());
+  $('help-close').addEventListener('click', () => $('help').close());
+  window.addEventListener('resize', fitScreen);
+  window.visualViewport?.addEventListener('resize', fitScreen);
+  new ResizeObserver(fitScreen).observe(document.querySelector('main'));
   render();
+  fitScreen();
   let installPrompt;
   window.addEventListener('beforeinstallprompt', event => {
     event.preventDefault(); installPrompt = event; $('install').hidden = false;
@@ -74,8 +94,13 @@ if (typeof document !== 'undefined') {
     await installPrompt.prompt(); installPrompt = null; $('install').hidden = true;
   });
   window.addEventListener('appinstalled', () => { $('install').hidden = true; installPrompt = null; });
+  let refreshing = false;
+  const hadController = !!navigator.serviceWorker?.controller;
+  navigator.serviceWorker?.addEventListener('controllerchange', () => {
+    if (hadController && !refreshing) { refreshing = true; location.reload(); }
+  });
   if ('serviceWorker' in navigator && window.isSecureContext) {
-    navigator.serviceWorker.register('./sw.js').then(() => navigator.serviceWorker.ready).then(() => {
+    navigator.serviceWorker.register('./sw.js', { updateViaCache: 'none' }).then(registration => { registration.update().catch(() => {}); return navigator.serviceWorker.ready; }).then(() => {
       $('offline-status').textContent = '✓ Lista para usar sin conexión';
     }).catch(() => { $('offline-status').textContent = 'No se pudo preparar el modo sin conexión. Recarga con internet.'; });
   } else {

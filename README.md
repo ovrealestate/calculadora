@@ -46,7 +46,7 @@ Ejemplos con clave 10.01:
 - ARGOLLAS: lista $33, efectivo $25, tarjeta $27.
 
 ## Actualizar
-Edita los archivos, cambia el nombre `CACHE` en `sw.js` (por ejemplo a `calculadora-precios-v3`) y carga de nuevo la carpeta completa desde una nueva implementación del mismo proyecto Pages. Con internet, abre la app para que descargue la actualización; cierra todas sus ventanas y pestañas y vuelve a abrirla para activar la nueva versión. Se conserva una versión coherente de los archivos durante cada consulta.
+Edita los archivos, cambia el nombre `CACHE` en `sw.js` (por ejemplo a `calculadora-precios-v4`) y carga de nuevo la carpeta completa desde una nueva implementación del mismo proyecto Pages. Con internet, abre la app para que descargue la actualización; cierra todas sus ventanas y pestañas y vuelve a abrirla para activar la nueva versión. La nueva versión se activa automáticamente al descargar todos los archivos.
 
 ## Comprobar antes de usar
 Prueba los ejemplos anteriores; cambia entre materiales; prueba una clave decimal y “Nueva consulta”. Espera el aviso offline, activa modo avión y recarga. Comprueba la instalación en tus dispositivos iPhone y Android.
@@ -61,3 +61,8 @@ Prueba los ejemplos anteriores; cambia entre materiales; prueba una clave decima
 - _headers: política de actualización para Cloudflare.
 
 No requiere un proceso de build. No incluye analítica ni envía claves a ningún servidor.
+
+## Versión 3: pantalla compacta
+Interfaz negra estilo iPhone que se ajusta proporcionalmente al ancho y alto disponibles. La ayuda e instalación están en el botón ?. En horizontal o con una ventana muy pequeña las teclas se reducen: se recomienda posición vertical para comodidad. Se mantiene habilitado el zoom de accesibilidad.
+
+Publica este ZIP completo en el MISMO proyecto de Cloudflare Pages. Abre la dirección con internet y recarga; esta versión activa automáticamente su caché nuevo. Si vienes de una versión anterior, cierra y vuelve a abrir la app una vez para cargar el nuevo diseño. El ZIP local por sí solo no cambia un sitio ya publicado.

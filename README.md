@@ -1,4 +1,4 @@
-# Calculadora de precios
+# Calculadora de precios — estilo iPhone
 
 PWA móvil en español, sin dependencias, cuentas ni servicios externos. Todos los cálculos se realizan en el dispositivo. Los importes se muestran en pesos con símbolo $. No guarda las claves.
 
@@ -23,6 +23,9 @@ Documentación oficial: https://developers.cloudflare.com/pages/get-started/dire
 - **Android:** abre el enlace en Chrome y toca “Instalar calculadora” cuando aparezca, o usa el menú → Instalar aplicación / Agregar a pantalla de inicio.
 - Abre una vez con internet y espera “Lista para usar sin conexión”. Después funciona en modo avión, incluso al cerrarla y volverla a abrir, mientras el navegador conserve los datos del sitio. Si se borran, abre nuevamente con internet.
 
+## Diseño
+Fondo negro, números blancos y teclas redondas grises y naranjas, inspirados en la calculadora de iPhone. Usa el teclado numérico en pantalla. Las teclas ORO, PLATA y ARGOLLAS seleccionan el material; AC / Nueva consulta limpia la clave; ⌫ borra el último dígito. El cálculo se actualiza al escribir, y = confirma.
+
 ## Uso
 Selecciona ORO, PLATA o ARGOLLAS e ingresa la clave. Los precios cambian al escribir. “Nueva consulta” limpia la clave y conserva el material elegido. Acepta punto o coma decimal, sin separadores de miles. Cero es válido; negativos y texto no lo son. Límite: 30 caracteres en la clave y precio de lista de $999,999,999.
 
@@ -43,7 +46,7 @@ Ejemplos con clave 10.01:
 - ARGOLLAS: lista $33, efectivo $25, tarjeta $27.
 
 ## Actualizar
-Edita los archivos, cambia el nombre `CACHE` en `sw.js` (por ejemplo a `calculadora-precios-v2`) y carga de nuevo la carpeta completa desde una nueva implementación del mismo proyecto Pages. Con internet, abre la app para que descargue la actualización; cierra todas sus ventanas y pestañas y vuelve a abrirla para activar la nueva versión. Se conserva una versión coherente de los archivos durante cada consulta.
+Edita los archivos, cambia el nombre `CACHE` en `sw.js` (por ejemplo a `calculadora-precios-v3`) y carga de nuevo la carpeta completa desde una nueva implementación del mismo proyecto Pages. Con internet, abre la app para que descargue la actualización; cierra todas sus ventanas y pestañas y vuelve a abrirla para activar la nueva versión. Se conserva una versión coherente de los archivos durante cada consulta.
 
 ## Comprobar antes de usar
 Prueba los ejemplos anteriores; cambia entre materiales; prueba una clave decimal y “Nueva consulta”. Espera el aviso offline, activa modo avión y recarga. Comprueba la instalación en tus dispositivos iPhone y Android.

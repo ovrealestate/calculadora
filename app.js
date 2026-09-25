@@ -27,6 +27,7 @@ if (typeof document !== 'undefined') {
   const material = () => document.querySelector('[name="material"]:checked').value;
   function render() {
     const kind = material(), rule = RULES[kind];
+    $('material-name').textContent = kind.toUpperCase();
     $('discounts').hidden = kind === 'plata';
     $('silver-note').hidden = kind !== 'plata';
     $('base-label').textContent = kind === 'plata' ? 'Precio final' : 'Precio de lista';
@@ -48,6 +49,21 @@ if (typeof document !== 'undefined') {
   $('clave').addEventListener('input', render);
   document.querySelectorAll('[name="material"]').forEach(el => el.addEventListener('change', render));
   $('reset').addEventListener('click', () => { $('clave').value = ''; render(); $('clave').focus(); });
+  document.querySelectorAll('[data-key]').forEach(button => button.addEventListener('click', () => {
+    const key = button.dataset.key;
+    const input = $('clave');
+    if (key === '.' && /[.,]/.test(input.value)) return;
+    if (input.value.length >= 30) return;
+    input.value = key === '.' && !input.value ? '0.' : input.value + key;
+    render();
+    input.scrollLeft = input.scrollWidth;
+  }));
+  $('backspace').addEventListener('click', () => { $('clave').value = $('clave').value.slice(0, -1); render(); });
+  $('equals').addEventListener('click', () => { render(); $('clave').blur(); });
+  $('clave').addEventListener('keydown', event => {
+    if (event.key === 'Enter') { render(); $('clave').blur(); }
+    if (event.key === 'Escape') { $('clave').value = ''; render(); }
+  });
   render();
   let installPrompt;
   window.addEventListener('beforeinstallprompt', event => {

@@ -1,5 +1,5 @@
 // Cambia la versión al publicar cualquier actualización.
-const CACHE = 'calculadora-precios-v1';
+const CACHE = 'calculadora-precios-v2';
 const ASSETS = ['./', './index.html', './styles.css', './app.js', './manifest.json', './icons/icon-192.png', './icons/icon-512.png', './icons/maskable-512.png', './icons/apple-touch-icon.png'];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS)));
